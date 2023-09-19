@@ -6,8 +6,7 @@ const bodyparser=require('body-parser')
 const createError = require('http-errors')
 var xss = require('xss-clean')
 const limit=require('express-rate-limit')
-
-const seedRoute=require('./routes/seed.route')
+const path=require('path')
 const UserRoute=(require('./routes/User.route'))
 
 const limiter=limit({
@@ -24,16 +23,14 @@ app.use(bodyparser.json())
 app.use(xss())
 
 //
-app.use(express.static(path.join(__dirname, './client/build')))
+app.use(express.static(path.join(__dirname, '.././client/build')))
 
 app.get("*",function (req,res){
-    res.sendFile(path.join(__dirname,'./client/build/index.html'))
+    res.sendFile(path.join(__dirname,'.././client/build/index.html'))
 })
 
 //Router
-app.use(seedRoute)
 app.use(UserRoute)
-app.use('/uploads',express.static('uploads'))
 
 
 
